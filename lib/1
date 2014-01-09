@@ -1,0 +1,73 @@
+require 'spec_helper'
+
+class SecondGrade
+
+  attr_accessor :a,:b,:c,:d,:e,:x1,:x2
+
+  def initialize(a,b,c)
+    @a,@b,@c = a,b,c
+  end
+
+  def solve
+    @d = @b**2 - 4 * @a * @c
+    @e = 2 * @a
+  end
+
+  def d_equal_0
+    @x1 = @x2 = (-@b)/@e
+  end
+
+  def d_major_0
+    @x1 = (-@b + Math.sqrt(@d))/@e
+    @x2 = (-@b - Math.sqrt(@d))/@e
+  end
+
+  def d_minor_0
+    @x1 = -@b / @e + Math.sqrt(-@d) /@e
+    @x2 = -@b / @e - Math.sqrt(-@d) /@e
+  end
+
+end
+
+describe 'SecondGrade' do
+
+  it 'initializes a, b , c' do
+    ecuation = SecondGrade.new(1,2,3)
+    expect(ecuation.a).to eql(1)
+    expect(ecuation.b).to eql(2)
+    expect(ecuation.c).to eql(3)
+  end
+
+  it 'solve the ecuation and return d,e' do
+    ecuation = SecondGrade.new(2,4,3)
+    ecuation.solve
+    expect(ecuation.b).to eql(4)
+    expect(ecuation.e).to eql(4)
+  end
+
+  it "d is equal 0"do
+    ecuation = SecondGrade.new(4,6,8)
+    ecuation.solve
+    ecuation.d_equal_0
+    expect(ecuation.x1).to eql(3)
+    expect(ecuation.x2).to eql(5)
+  end
+
+  it "d is mayor than 0" do
+    ecuation = SecondGrade.new(15,7,8)
+    ecuation.solve
+    ecuation.d_major_0
+    expect(ecuation.x1).to eql(3)
+    expect(ecuation.x2).to eql(5)
+  end
+
+  it "d is minor than 0" do
+    ecuation = SecondGrade.new(6,8,9)
+    ecuation.solve
+    ecuation.do_minor_0
+    expect(ecuation.x1).to eql(3)
+    expect(ecuation.x2).to eql(5)
+  end
+
+end
+
